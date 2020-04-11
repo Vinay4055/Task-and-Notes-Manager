@@ -1,0 +1,16 @@
+.container{
+    margin-left: 100px;
+    margin-top: 100px;
+}
+del{
+    color:grey;
+}
+.center{
+    text-align: center;
+}
+input,select{
+    position: absolute;
+    left:30%;
+    width: 25%;
+    font-size: 100%;
+}

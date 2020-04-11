@@ -1,0 +1,27 @@
+{
+  "name": "task_manager",
+  "version": "1.0.0",
+  "description": "This Project Is Used To store user tasks and notes for that tasks and also supports for updating task detail",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.3",
+    "sequelize": "^5.21.6",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vinay4055/Task-and-Notes-Manager.git"
+  },
+  "author": "VinayPrajapat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vinay4055/Task-and-Notes-Manager/issues"
+  },
+  "homepage": "https://github.com/Vinay4055/Task-and-Notes-Manager#readme"
+}
