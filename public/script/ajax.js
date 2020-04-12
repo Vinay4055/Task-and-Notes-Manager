@@ -17,7 +17,7 @@ async function getAllTasksFromServer(){
 
 }
 async function getAllNotesFromServer(id){
-  console.log("Id = ",id)
+  //console.log("Id = ",id)
   const resp = await fetch('/note/'+id,{
     method: 'GET'
   })
@@ -36,4 +36,18 @@ async function addNewNoteToServer(note,taskId) {
     body: JSON.stringify({note:note})
   }
   )
+}
+async function updateDueDateOnServer(taskId , newValue) {
+  
+  const resp = await fetch('/task/'+taskId,
+  {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({dueDate : newValue})
+  }
+  )
+ await displayTasks()
+  
 }

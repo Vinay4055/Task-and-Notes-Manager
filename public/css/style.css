@@ -24,3 +24,9 @@ input,select{
     width: 25%;
     font-size: 100%;
 }
+.newElement{
+    position: absolute;
+    left:20%;
+    width: 25%;
+    font-size: 100%;
+}

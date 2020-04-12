@@ -41,6 +41,16 @@ for(note of noteArray){
     res.status(201).send({ success: 'New task added', data: newTask })
   })
 
+  route.patch('/:id',async (req,res) => {
+
+    let taskId = req.params.id
+    let task = await tasks.findByPk(taskId)
+    let dueDate = req.body.dueDate
+    console.log("Due Date = "+dueDate)
+    task.dueDate = dueDate
+    await task.save();
+    res.status(201).send({ success: 'DueDate Updated', data: dueDate })
+  })
 
 
   module.exports = route
