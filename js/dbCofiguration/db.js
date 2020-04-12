@@ -29,6 +29,10 @@ const tasks = db.define('task', {
       type: Sequelize.STRING(40),
       allowNull: false,
     },
+    dueDate:{
+      type:Sequelize.DATEONLY,
+      allowNull: true
+    },
     status:{
       type: Sequelize.STRING(12),
       allowNull: false,

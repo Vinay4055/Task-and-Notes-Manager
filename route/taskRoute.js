@@ -3,6 +3,18 @@ const { tasks,notes} = require('../js/dbCofiguration/db')
 
 const route = Router()
 
+route.get('/',async(req,res) => {
+  const allTasks = await tasks.findAll(
+    {
+      attributes: ['id', 'title', 'description', 'dueDate', 'status', 'priority']
+    }
+  )
+  
+  
+   res.send(allTasks)
+  
+})
+
 route.post('/', async (req, res) => {
     console.log("At server = "+req.body.task.title)
     if (typeof req.body.task.title !== 'string') {

@@ -8,3 +8,32 @@ async function addTaskOnServer(task){
         body: JSON.stringify({task:task})
       })
 }
+async function getAllTasksFromServer(){
+  const resp = await fetch('/task',{
+    method: 'GET'
+ })
+ let task = await resp.json()
+ return task
+
+}
+async function getAllNotesFromServer(id){
+  console.log("Id = ",id)
+  const resp = await fetch('/note/'+id,{
+    method: 'GET'
+  })
+  let note = await resp.json()
+  return note
+}
+async function addNewNoteToServer(note,taskId) {
+  console.log("New Note = ",note)
+  console.log("Task Id = ",taskId)
+  const resp = await fetch('/note/'+taskId,
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({note:note})
+  }
+  )
+}

@@ -14,3 +14,13 @@ input,select{
     width: 25%;
     font-size: 100%;
 }
+.button{
+    position : absolute;
+    left : 37%
+}
+.newNote{
+    position: absolute;
+    left:12%;
+    width: 25%;
+    font-size: 100%;
+}
