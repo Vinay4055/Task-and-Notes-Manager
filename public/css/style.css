@@ -30,3 +30,7 @@ input,select{
     width: 25%;
     font-size: 100%;
 }
+.newCheckBox{
+    position: absolute;
+    left:7%;
+}

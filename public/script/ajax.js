@@ -39,7 +39,7 @@ async function addNewNoteToServer(note,taskId) {
 }
 async function updateDueDateOnServer(taskId , newValue) {
   
-  const resp = await fetch('/task/'+taskId,
+  const resp = await fetch('/task/dueDate/'+taskId,
   {
     method: 'PATCH',
     headers: {
@@ -48,6 +48,38 @@ async function updateDueDateOnServer(taskId , newValue) {
     body: JSON.stringify({dueDate : newValue})
   }
   )
- await displayTasks()
+
+  
+}
+
+
+async function updatePriorityOnServer(taskId , newValue) {
+  
+  const resp = await fetch('/task/priority/'+taskId,
+  {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({priority : newValue})
+  }
+  )
+ 
+  
+}
+
+
+async function updateStatusOnServer(taskId , newValue) {
+  
+  const resp = await fetch('/task/status/'+taskId,
+  {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({status : newValue})
+  }
+  )
+
   
 }

@@ -41,7 +41,7 @@ for(note of noteArray){
     res.status(201).send({ success: 'New task added', data: newTask })
   })
 
-  route.patch('/:id',async (req,res) => {
+  route.patch('/dueDate/:id',async (req,res) => {
 
     let taskId = req.params.id
     let task = await tasks.findByPk(taskId)
@@ -51,6 +51,32 @@ for(note of noteArray){
     await task.save();
     res.status(201).send({ success: 'DueDate Updated', data: dueDate })
   })
+
+
+
+  route.patch('/priority/:id',async (req,res) => {
+
+    let taskId = req.params.id
+    let task = await tasks.findByPk(taskId)
+    let priority = req.body.priority
+    
+    task.priority = priority
+    await task.save();
+    res.status(201).send({ success: 'Priority Updated', data: priority })
+  })
+
+
+  route.patch('/status/:id',async (req,res) => {
+
+    let taskId = req.params.id
+    let task = await tasks.findByPk(taskId)
+    let status = req.body.status
+    
+    task.status = status
+    await task.save();
+    res.status(201).send({ success: 'Status Updated', data: status })
+  })
+
 
 
   module.exports = route

@@ -111,7 +111,7 @@ async function displayTasks(){
         let statusDiv = document.createElement('div')
         statusDiv.setAttribute('id','status'+count)
         statusDiv.setAttribute('value',element.status)
-        statusDiv.setAttribute('onclick','displayNotes(this.id)')
+        //statusDiv.setAttribute('onclick','displayNotes(this.id)')
 
         const spanStatus = document.createElement('span')
         spanStatus.setAttribute('id','spanStatus'+count)
@@ -119,7 +119,7 @@ async function displayTasks(){
         spanStatus.setAttribute('onclick','editAnyElement(this.id,\"status\")')
 
         statusDiv.textContent = 'Status = '+element.status
-
+        statusDiv.append(spanStatus)
         li.append(statusDiv)
 
         allTask.append(li)
@@ -215,12 +215,13 @@ function editAnyElement(id,elementToChange) {
        console.log('Element To Change Inside due Date= '+elementToChange)
        newElement.setAttribute('type','date')
        newElement.setAttribute('oninput','updateValue('+count+','+'newElement'+count+''+newElementCount+',\"'+elementToChange+'\")')
-     }
+       newElement.setAttribute('class','newElement')
+    }
     if((''+elementToChange.localeCompare('priority')) == 0)
     {
         newElement = document.createElement('select')
         newElement.setAttribute('onchange','updateValue('+count+','+'newElement'+count+''+newElementCount+',\"'+elementToChange+'\")')
-
+        newElement.setAttribute('class','newElement')
         console.log('Element To Change Inside Priority= '+elementToChange)
         let option1 = document.createElement('option')
         option1.setAttribute('value','High')
@@ -236,15 +237,47 @@ function editAnyElement(id,elementToChange) {
         newElement.append(option3)
     }
     if((''+elementToChange.localeCompare('status')) == 0){
-        newElementCompleted = document.createElement('input')
-        newElement.setAttribute('type','checkbox')
-        newElement.setAttribute('onchange','updateValue('+count+','+'newElement'+count+''+newElementCount+',\"'+elementToChange+'\")')
+        newElement = document.createElement('div')
+        
+        let completedCheckbox = document.createElement('input')
+        completedCheckbox.setAttribute('type','checkbox')
+        completedCheckbox.setAttribute('class','newCheckBox')
+        //completedCheckbox.setAttribute('checked',true)
+        completedCheckbox.setAttribute('onclick','updateValueOfStatus('+count+','+'newElement'+count+''+newElementCount+',\"'+elementToChange+'\")')
+        completedCheckbox.setAttribute('value','Complete')
         let completedLabel = document.createElement('label')
+        let brCompletedCheckBox = document.createElement('br')
+        
+        //let brCompletedCheckBoxAnother = document.createElement('br')
+        //completedCheckbox.append(brCompletedCheckBox)
+        completedLabel.textContent = 'Completed'
+        newElement.append(completedCheckbox)
+        completedCheckbox.parentNode.insertBefore(completedLabel,completedCheckbox.nextSibling)
+        completedLabel.parentNode.insertBefore(brCompletedCheckBox,completedLabel.nextSibling)
 
 
+        let notCompletedCheckbox = document.createElement('input')
+        notCompletedCheckbox.setAttribute('type','checkbox')
+        notCompletedCheckbox.setAttribute('class','newCheckBox')
+        //notcompletedCheckbox.setAttribute('checked',true)
+        notCompletedCheckbox.setAttribute('onclick','updateValueOfStatus('+count+','+'newElement'+count+''+newElementCount+',\"'+elementToChange+'\")')
+        notCompletedCheckbox.setAttribute('value','InComplete')
+        let inCompletedLabel = document.createElement('label')
+        let brInCompletedCheckBox = document.createElement('br')
+        
+        //let brCompletedCheckBoxAnother = document.createElement('br')
+        inCompletedLabel.textContent = 'InComplete'
+        newElement.append(notCompletedCheckbox)
+        notCompletedCheckbox.parentNode.insertBefore(inCompletedLabel,notCompletedCheckbox.nextSibling)
+
+
+
+        newElement.append(brInCompletedCheckBox)
+        
+        
     }
     newElement.setAttribute('id','newElement'+count+''+newElementCount)
-    newElement.setAttribute('class','newElement')
+    
     let oldValue = document.getElementById(elementToChange+''+count).getAttribute('value')
     newElement.setAttribute('value',oldValue)
     let existingElement = document.getElementById(elementToChange+''+count)
@@ -285,4 +318,54 @@ async function updateValue(count,id,elementToChange) {
         
 
     }
+    if((''+elementToChange.localeCompare('priority')) == 0)
+    {
+        console.log('Inside dueDate If')
+        await updatePriorityOnServer(taskId,newValue)
+        
+
+    }
+}
+
+
+
+
+
+
+async function updateValueOfStatus(count,id,elementToChange) {
+    console.log("ID = = = "+id.id)
+    console.log("OR = "+id)
+    
+    //let div = document.getElementById(id.id)
+    let checkBoxes = id.getElementsByTagName('input')
+    
+    let newValue=""
+    for(let checkbox of checkBoxes){
+        if(checkbox.checked == true){
+            newValue = checkbox.value
+            break
+        }
+    }
+    let newElementCount = ((id.id).match(/(\d+)/))[0]; 
+    let newLabel = document.getElementById('newLabel'+newElementCount)
+    newLabel.innerHTML=""
+    let newInput = document.getElementById('newElement'+newElementCount)
+    let taskId = document.getElementById('taskId'+count).getAttribute('value')
+    
+    newInput.parentElement.removeChild(newInput)
+    let newDiv = document.createElement('div')
+    newDiv.setAttribute('id',elementToChange+''+count)
+    newDiv.textContent=elementToChange+' = '+newValue
+    let newSpan = document.createElement('span')
+    newSpan.setAttribute('id','spanDueDate'+count)
+    newSpan.setAttribute('class','glyphicon glyphicon-edit')
+    newSpan.setAttribute('onclick','editAnyElement(this.id,\"'+elementToChange+'\")')
+    newDiv.append(newSpan)
+    newLabel.append(newDiv)
+    console.log("New Value = "+newValue)
+ 
+        await updateStatusOnServer(taskId,newValue)
+        
+
+    
 }
