@@ -12,7 +12,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/Vinay4055/Task-and-Notes-Manager/issues"
   },
-  "homepage": "https://github.com/Vinay4055/Task-and-Notes-Manager#readme"
+  "homepage": "https://github.com/Vinay4055/Task-and-Notes-Manager#readme",
+  "engines": {
+    "node" : "12",
+    "npm" : "6"
+  }
 }

@@ -14,7 +14,7 @@ app.use('/task', taskRoute)
 app.use('/note',noteRoute)
 db.sync()
   .then(() => {
-    app.listen(6543)
+    app.listen(3333)
   })
   .catch((err) => {
     console.error(err)
