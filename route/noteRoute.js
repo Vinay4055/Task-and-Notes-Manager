@@ -23,6 +23,14 @@ route.post('/:id',async(req,res) => {
   let taskId = req.params.id
   console.log("taskId = "+taskId)
   let note = req.body.note
+
+
+  if((note.length == 0)){
+    return res.status(400).send({ response: 'Note Name Con Not Be Empty' })
+  }
+
+  
+
   console.log("Note = "+note)
   await notes.create(
     {
@@ -30,5 +38,7 @@ route.post('/:id',async(req,res) => {
       taskId : taskId
   }
   )
+  res.status(201).send({ response: 'New Note added', data: note })
+
 })
 module.exports = route

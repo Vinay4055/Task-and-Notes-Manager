@@ -34,3 +34,8 @@ input,select{
     position: absolute;
     left:7%;
 }
+.sortBySelect{
+    position: absolute;
+    left:6%;
+    width: 10%;
+}

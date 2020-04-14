@@ -7,6 +7,17 @@ async function addTaskOnServer(task){
         },
         body: JSON.stringify({task:task})
       })
+     
+
+     resp.body.getReader().read().then((v) =>
+     {
+      let string = new TextDecoder("utf-8").decode(v.value);
+      let jsonResp = JSON.parse(string)
+      document.getElementById('response').innerHTML="<font color = \"red\">"+jsonResp.response+"</font>"
+      console.log(jsonResp.error)
+    })
+
+    
 }
 async function getAllTasksFromServer(){
   const resp = await fetch('/task',{
@@ -17,7 +28,6 @@ async function getAllTasksFromServer(){
 
 }
 async function getAllNotesFromServer(id){
-  //console.log("Id = ",id)
   const resp = await fetch('/note/'+id,{
     method: 'GET'
   })
@@ -36,6 +46,16 @@ async function addNewNoteToServer(note,taskId) {
     body: JSON.stringify({note:note})
   }
   )
+
+  resp.body.getReader().read().then((v) =>
+     {
+      let string = new TextDecoder("utf-8").decode(v.value);
+      let jsonResp = JSON.parse(string)
+      document.getElementById('response').innerHTML="<font color = \"red\">"+jsonResp.response+"</font>"
+      console.log(jsonResp.error)
+    })
+
+
 }
 async function updateDueDateOnServer(taskId , newValue) {
   

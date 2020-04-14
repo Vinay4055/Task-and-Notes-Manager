@@ -4,6 +4,7 @@ const note=document.getElementById("note")
 const label=document.createElement("label")
 label.textContent="Note"
 const input=document.createElement("input")
+
 const br=document.createElement("br")
 note.append(label)
 note.append(input)
@@ -21,7 +22,7 @@ for(item of notes){
     noteValues.push(item.value)
 }
 console.log("noteValues = ",noteValues)
-addTaskOnServer(
+ addTaskOnServer(
     {
         "title":title,
         "description":description,
@@ -31,22 +32,24 @@ addTaskOnServer(
 
     }
 )
-let status=false
+
+
+
 displayTasks()
 }
 let count =1 ;
 
 
 async function displayTasks(){
-    console.log("Inside Display Before") 
+    
   let taskArray=await getAllTasksFromServer();
- console.log("Inside Display After")
+ 
  
   let allTask = document.getElementById('allTask')
   
-  let newTasks=""
+  
     taskArray.forEach(element => {
-      let statusOfTask=""
+    
       let dueDate=""
      
         if(((''+element.dueDate).localeCompare('Invalid date')) == 0){
@@ -81,7 +84,7 @@ async function displayTasks(){
         let dueDateDiv = document.createElement('div')
         dueDateDiv.setAttribute('id','dueDate'+count)
         dueDateDiv.setAttribute('value',dueDate)
-        dueDateDiv.setAttribute('onclick','displayNotes(this.id)')
+       // dueDateDiv.setAttribute('onclick','displayNotes(this.id)')
 
         const spanDueDate = document.createElement('span')
         spanDueDate.setAttribute('id','spanDueDate'+count)
@@ -95,7 +98,7 @@ async function displayTasks(){
         let priorityDiv = document.createElement('div')
         priorityDiv.setAttribute('id','priority'+count)
         priorityDiv.setAttribute('value',element.priority)
-        priorityDiv.setAttribute('onclick','displayNotes(this.id)')
+      //  priorityDiv.setAttribute('onclick','displayNotes(this.id)')
 
 
         const spanPriority = document.createElement('span')
@@ -172,6 +175,7 @@ async function displayNotes(id) {
     let input = document.createElement("input")
     input.setAttribute("id",'newNote'+count)
     input.setAttribute("placeholder","Enter New Note")
+    input.required="true"
     input.setAttribute('class','newNote')
     let brCount = 1
     let button = document.createElement("Button")
@@ -193,9 +197,8 @@ async function displayNotes(id) {
 }
 function addNewNote(count) {
     let div = document.getElementById('newNote'+count+''+noteCount)
-    console.log("Div id = "+div.id)
-    div.textContent = document.getElementById('newNote'+count).value
-    noteCount++
+     div.textContent = document.getElementById('newNote'+count).value
+     noteCount++
     const newDiv = document.createElement('div')
     console.log("Inside Add new Note")
     newDiv.setAttribute('id','newNote'+count+''+noteCount)
