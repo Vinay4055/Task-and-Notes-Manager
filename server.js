@@ -5,7 +5,7 @@ const taskRoute = require('./route/taskRoute')
 const noteRoute = require('./route/noteRoute')
 
 const app = express()
-
+const SERVER_PORT = process.env.PORT || 3333
 app.use(express.json())
 
 app.use('/', express.static(__dirname + '/public'))
@@ -14,7 +14,7 @@ app.use('/task', taskRoute)
 app.use('/note',noteRoute)
 db.sync()
   .then(() => {
-    app.listen(3333)
+    app.listen(SERVER_PORT)
   })
   .catch((err) => {
     console.error(err)
