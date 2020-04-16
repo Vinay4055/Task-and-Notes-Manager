@@ -7,7 +7,7 @@
         <script src="script/script.js"></script> 
         <script src="script/ajax.js"></script> 
         <script src="script/sortTasks.js"></script> 
-        <script src="script/utility.js"></script> 
+        <script src="script/assignDefaultDateForDueDate.js"></script> 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -16,8 +16,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-    <body class="container" onload="displayTasks()">
-        <h1 class="center">Task And Notes Manager</h1>
+    <body class="container" onload="displayTasks();assignDefaultDateForDueDate()">
+       
+
+    <h1 class="center">Task And Notes Manager</h1>
         <h2>Task List</h2>
         <label for="title">Enter Title for your Task :-</label>
         <input type="text" id="title" /><br>
@@ -26,13 +28,13 @@
         <input type="text" id="description" /><br>
 
         <label for="dueDate">Enter Due Date :-</label>
-        <input type="date" id="dueDate"/><br>
+        <input type="date" id="dueDate" value=""/><br>
 
         <label for="priority">Priority :-</label>
         <select id="priority">
             
             <option value="High">High</option>
-            <option value="Medium">Medium</option>    
+            <option value="Medium" selected>Medium</option>    
             <option value="Low">Low</option>
         </select>
         <div id="note">
@@ -40,7 +42,7 @@
         </div>
         <button type="button" class="btn btn-primary" onclick="createNoteUi()">Add Note</button>
         <button type="button" class="btn btn-success" onclick="addTask()">Upload Task</button>
-        <button type="button" class="btn btn-primary" onClick="removeAllCompletedTask();refreshTaskList();refreshTaskList()">Clear Task</button>
+     <!--   <button type="button" class="btn btn-primary" onClick="removeAllCompletedTask();refreshTaskList();refreshTaskList()">Clear Task</button>-->
         
         <br>
         <div id='response'>

@@ -10,7 +10,7 @@ note.append(label)
 note.append(input)
 note.append(br)
 }
-function addTask(){
+async function addTask(){
 let title=document.getElementById('title').value
 let description=document.getElementById('description').value
 let dueDate=document.getElementById('dueDate').value
@@ -32,10 +32,11 @@ console.log("noteValues = ",noteValues)
 
     }
 )
+let allTasks = await getAllTasksFromServer()
 
 
 
-displayTasks()
+displaySortedTasks(allTasks)
 }
 let count =1 ;
 
@@ -51,12 +52,20 @@ async function displayTasks(){
     taskArray.forEach(element => {
     
       let dueDate=""
-     
+      let description="" 
         if(((''+element.dueDate).localeCompare('Invalid date')) == 0){
             dueDate = 'No Due Date'
         }
         else{
             dueDate = element.dueDate
+        }
+        if((element.description).localeCompare('') == 0)
+        {
+            description = 'No Description Provided'
+        }
+        else
+        {
+            description = element.description
         }
         let li = document.createElement("li")
         li.setAttribute('id','list'+count)
@@ -78,7 +87,7 @@ async function displayTasks(){
         descriptionDiv.setAttribute('id','description'+count)
         descriptionDiv.setAttribute('value',element.description)
         descriptionDiv.setAttribute('onclick','displayNotes(this.id)')
-        descriptionDiv.textContent = 'Description = '+element.description
+        descriptionDiv.textContent = 'Description = '+description
         li.append(descriptionDiv)
 
         let dueDateDiv = document.createElement('div')
@@ -139,6 +148,7 @@ async function displayNotes(id) {
     const li = document.getElementById('list'+count)
     let taskId = document.getElementById('taskId'+count).getAttribute('value')
     let notesArray = await getAllNotesFromServer(taskId)
+   
     for(note of notesArray){
         let existingNode = document.getElementById('note'+count+''+noteCount)
         if(existingNode != null)
@@ -147,7 +157,7 @@ async function displayNotes(id) {
         }
         const div = document.createElement("div")
         div.setAttribute("id",'note'+count+''+noteCount)
-        div.textContent = note.note
+        div.textContent = 'Note '+noteCount+' = '+note.note
         li.append(div)
         noteCount++
  }
@@ -197,14 +207,15 @@ async function displayNotes(id) {
 }
 function addNewNote(count) {
     let div = document.getElementById('newNote'+count+''+noteCount)
-     div.textContent = document.getElementById('newNote'+count).value
+     let newNote =document.getElementById('newNote'+count).value
+     div.textContent='Note '+noteCount+' = '+newNote
      noteCount++
-    const newDiv = document.createElement('div')
-    console.log("Inside Add new Note")
+     const newDiv = document.createElement('div')
+    
     newDiv.setAttribute('id','newNote'+count+''+noteCount)
     div.append(newDiv)
     let taskId = document.getElementById('taskId'+count).getAttribute('value')
-    addNewNoteToServer(div.textContent,taskId)
+    addNewNoteToServer(newNote,taskId)
 }
 let newElementCount = 1
 function editAnyElement(id,elementToChange) {
@@ -225,13 +236,17 @@ function editAnyElement(id,elementToChange) {
         newElement = document.createElement('select')
         newElement.setAttribute('onchange','updateValue('+count+','+'newElement'+count+''+newElementCount+',\"'+elementToChange+'\")')
         newElement.setAttribute('class','newElement')
-        console.log('Element To Change Inside Priority= '+elementToChange)
+        let option0 = document.createElement('option')
+        option0.textContent='Select Priority'
+        newElement.append(option0)
         let option1 = document.createElement('option')
         option1.setAttribute('value','High')
         option1.textContent='High'
         newElement.append(option1)
         let option2 = document.createElement('option')
         option2.setAttribute('value','Medium')
+        
+
         option2.textContent='Medium'
         newElement.append(option2)
         let option3 = document.createElement('option')

@@ -12,13 +12,21 @@ function displaySortedTasks(taskArray){
       taskArray.forEach(element => {
         let statusOfTask=""
         let dueDate=""
-       
+        let description=""
           if(((''+element.dueDate).localeCompare('Invalid date')) == 0){
               dueDate = 'No Due Date'
           }
           else{
               dueDate = element.dueDate
           }
+          if((element.description).localeCompare('') == 0)
+        {
+            description = 'No Description Provided'
+        }
+        else
+        {
+            description = element.description
+        }
           let li = document.createElement("li")
           li.setAttribute('id','list'+sortCount)
           
@@ -39,7 +47,7 @@ function displaySortedTasks(taskArray){
           descriptionDiv.setAttribute('id','description'+sortCount)
           descriptionDiv.setAttribute('value',element.description)
           descriptionDiv.setAttribute('onclick','displayNotes(this.id)')
-          descriptionDiv.textContent = 'Description = '+element.description
+          descriptionDiv.textContent = 'Description = '+description
           li.append(descriptionDiv)
   
           let dueDateDiv = document.createElement('div')
@@ -93,7 +101,11 @@ function displaySortedTasks(taskArray){
   }
 
 
-function sortTasks(){
+function sortTasks(id){
+    let select = document.getElementById('sortTask')
+    
+   
+   
     let option = document.getElementById('sortTask').value
     if(option.localeCompare('dueDateAscending') == 0){
         sortTasksByDueDateAscending()
@@ -110,6 +122,7 @@ function sortTasks(){
     if(option.localeCompare('status') == 0){
         sortTasksByStatus()
     }
+    select.selectedIndex = 0
 }
 
 async function sortTasksByDueDateAscending(){
